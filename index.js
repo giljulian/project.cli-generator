@@ -44,6 +44,8 @@ const questions = [
 
 inquirer.prompt(questions).then(async (answers) => {
   const { template, projectName } = answers;
+
+  console.log({ answers });
   
   const templatePath = path.join(packagesPath, `${template}-boilerplate`);
   const projectFolderPath = path.join(generatedProjectsPath, projectName); // New folder path
