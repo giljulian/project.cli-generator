@@ -82,6 +82,7 @@ inquirer.prompt(questions).then(async (answers) => {
 
     if (!originRemoteExists) {
       // Add the remote GitHub repository
+      console.log({repoName});
       await repo.addRemote('origin', `https://github.com/${GITHUB_USERNAME}/${repoName}.git`);
     }
 
