@@ -79,7 +79,7 @@ inquirer.prompt(questions).then(async (answers) => {
     await repo.addRemote('origin', `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
 
     // Push to the remote repository
-    await repo.push('origin', 'main');
+    await repo.push('origin', 'master');
 
     console.log(`GitHub repository ${repoName} created and files pushed!`);
   } catch (error) {
