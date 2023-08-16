@@ -76,7 +76,7 @@ inquirer.prompt(questions).then(async (answers) => {
     await repo.commit('Initial commit'); // Commit with a message
 
     // Add the remote GitHub repository
-    await repo.addRemote('origin', `https://github.com/${GITHUB_USERNAME}/${repoName}.git`);
+    await repo.addRemote('origin', `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
 
     // Push to the remote repository
     await repo.push('origin', 'main');
