@@ -22,8 +22,6 @@ const copyAsync = promisify(fs.copy);
 
 const { GITHUB_TOKEN, GITHUB_USERNAME } = process.env;
 
-console.log({ token: GITHUB_TOKEN });
-
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN , // Replace with your personal access token
 });
