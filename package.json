@@ -1,0 +1,19 @@
+{
+  "name": "project-cli-generator",
+  "version": "1.0.0",
+  "description": "poc to create project base on inputs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julian Gil",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^9.2.10",
+    "octokit": "^3.1.0",
+    "simple-git": "^3.19.1"
+  }
+}
