@@ -76,7 +76,7 @@ inquirer.prompt(questions).then(async (answers) => {
     await repo.commit('Initial commit'); // Commit with a message
 
     const remotes = await repo.getRemotes();
-    const originRemoteExists = remotes.some((remote) => remote.name === 'origin');
+    const originRemoteExists = remotes.some((remote) => remote.name === `origin-${repoName}`);
 
     if (!originRemoteExists) {
       // await repo.addRemote('origin', `https://github.com/username/${repoName}.git`);
