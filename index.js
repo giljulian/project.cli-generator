@@ -25,7 +25,7 @@ const { GITHUB_TOKEN, GITHUB_USERNAME } = process.env;
 console.log({ token: GITHUB_TOKEN });
 
 const octokit = new Octokit({
-  auth: GITHUB_TOKEN, // Replace with your personal access token
+  auth: process.env.GITHUB_TOKEN , // Replace with your personal access token
 });
 
 const questions = [
@@ -83,7 +83,6 @@ inquirer.prompt(questions).then(async (answers) => {
       // Add the remote GitHub repository
       await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
     }
-
 
     // Push to the remote repository
     await repo.push(`origin-${repoName}`, 'main');
