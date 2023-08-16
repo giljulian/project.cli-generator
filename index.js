@@ -75,11 +75,18 @@ inquirer.prompt(questions).then(async (answers) => {
     await repo.add('.'); // Add all files
     await repo.commit('Initial commit'); // Commit with a message
 
-    // Add the remote GitHub repository
-    await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
+    const remotes = await repo.getRemotes();
+    const originRemoteExists = remotes.some((remote) => remote.name === 'origin');
+
+    if (!originRemoteExists) {
+      // await repo.addRemote('origin', `https://github.com/username/${repoName}.git`);
+      // Add the remote GitHub repository
+      await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
+    }
+
 
     // Push to the remote repository
-    await repo.push(`origin-${repoName}`, 'master');
+    await repo.push(`origin-${repoName}`, 'main');
 
     console.log(`GitHub repository ${repoName} created and files pushed!`);
   } catch (error) {
