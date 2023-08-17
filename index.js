@@ -74,6 +74,7 @@ inquirer.prompt(questions).then(async (answers) => {
     
     // Add the contents of the output folder to Git
     const outputFolderContents = await fs.readdir(projectFolderPath);
+    console.log({ outputFolderContents });
     await repo.add(outputFolderContents);
     await repo.commit('Initial commit'); // Commit with a message
 
@@ -81,11 +82,13 @@ inquirer.prompt(questions).then(async (answers) => {
     const originRemoteExists = remotes.some((remote) => remote.name === `origin-${repoName}`);
 
     if (!originRemoteExists) {
-      await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
+      console.log('ADD THE REMOTE');
+      // await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
     }
 
     // Push to the remote repository
-    await repo.push(`origin-${repoName}`, 'main');
+    console.log('MAKE THE PUSH');
+    // await repo.push(`origin-${repoName}`, 'main');
 
     console.log(`GitHub repository ${repoName} created and files pushed!`);
   } catch (error) {
