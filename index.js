@@ -24,7 +24,7 @@ const copyAsync = promisify(fs.copy);
 const { GITHUB_TOKEN, GITHUB_USERNAME } = process.env;
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN , // Replace with your personal access token
+  auth: GITHUB_TOKEN , // Replace with your personal access token
 });
 
 const questions = [
@@ -61,11 +61,6 @@ inquirer.prompt(questions).then(async (answers) => {
 
   console.log('Project setup completed!');
 
-  // // List the contents before pushing
-  // const contentsBeforePush = await fs.readdir(projectFolderPath);
-  // console.log('Contents before pushing:');
-  // console.log(contentsBeforePush);
-
   // Create a new repository on GitHub
   const repoName = projectName.toLowerCase().replace(/\s/g, '-');
   try {
@@ -91,12 +86,13 @@ inquirer.prompt(questions).then(async (answers) => {
 
     if (!originRemoteExists) {
       console.log('ADD THE REMOTE');
-      // await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
+      await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
     }
 
     // Push to the remote repository
     console.log('MAKE THE PUSH');
-    // await repo.push(`origin-${repoName}`, 'main');
+    process.chdir(projectFolderPath);
+    await repo.push(`origin-${repoName}`, 'main');
 
     console.log(`GitHub repository ${repoName} created and files pushed!`);
   } catch (error) {
