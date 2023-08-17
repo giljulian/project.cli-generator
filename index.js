@@ -1,3 +1,4 @@
+// ... Previous code
 import inquirer from 'inquirer';
 import simpleGit from 'simple-git';
 import path from 'path';
@@ -44,7 +45,7 @@ inquirer.prompt(questions).then(async (answers) => {
   const { template, projectName } = answers;
   
   const templatePath = path.join(packagesPath, `${template}-boilerplate`);
-  const projectFolderPath = path.join(generatedProjectsPath, projectName); // New folder path
+  const projectFolderPath = path.join(generatedProjectsPath, projectName);
 
   // Create the new project folder
   await mkdirAsync(projectFolderPath);
@@ -70,15 +71,16 @@ inquirer.prompt(questions).then(async (answers) => {
 
     // Initialize and configure simple-git
     const repo = git.init();
-    await repo.add('.'); // Add all files
+    
+    // Add and commit respecting .gitignore rules
+    await repo.add('.'); // Add all files (including those in .gitignore)
+    await repo.add('.gitignore', { intentToAdd: true }); // Add .gitignore itself
     await repo.commit('Initial commit'); // Commit with a message
 
     const remotes = await repo.getRemotes();
     const originRemoteExists = remotes.some((remote) => remote.name === `origin-${repoName}`);
 
     if (!originRemoteExists) {
-      // await repo.addRemote('origin', `https://github.com/username/${repoName}.git`);
-      // Add the remote GitHub repository
       await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
     }
 
