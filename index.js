@@ -72,9 +72,9 @@ inquirer.prompt(questions).then(async (answers) => {
     // Initialize and configure simple-git
     const repo = git.init();
     
-    // Add and commit respecting .gitignore rules
-    await repo.add('.'); // Add all files (including those in .gitignore)
-    await repo.add('.gitignore', { intentToAdd: true }); // Add .gitignore itself
+    // Add the contents of the output folder to Git
+    const outputFolderContents = await fs.readdir(projectFolderPath);
+    await repo.add(outputFolderContents);
     await repo.commit('Initial commit'); // Commit with a message
 
     const remotes = await repo.getRemotes();
