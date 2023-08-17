@@ -61,10 +61,10 @@ inquirer.prompt(questions).then(async (answers) => {
 
   console.log('Project setup completed!');
 
-  // List the contents before pushing
-  const contentsBeforePush = await fs.readdir(projectFolderPath);
-  console.log('Contents before pushing:');
-  console.log(contentsBeforePush);
+  // // List the contents before pushing
+  // const contentsBeforePush = await fs.readdir(projectFolderPath);
+  // console.log('Contents before pushing:');
+  // console.log(contentsBeforePush);
 
   // Create a new repository on GitHub
   const repoName = projectName.toLowerCase().replace(/\s/g, '-');
@@ -73,6 +73,9 @@ inquirer.prompt(questions).then(async (answers) => {
       name: repoName,
       description: `A new project using ${template} template`,
     });
+
+    console.log('New project folder path:', projectFolderPath);
+    console.log('Current working directory after changing:', process.cwd());
 
     // Initialize and configure simple-git
     const repo = git.init();
@@ -88,12 +91,12 @@ inquirer.prompt(questions).then(async (answers) => {
 
     if (!originRemoteExists) {
       console.log('ADD THE REMOTE');
-      await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
+      // await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
     }
 
     // Push to the remote repository
     console.log('MAKE THE PUSH');
-    await repo.push(`origin-${repoName}`, 'main');
+    // await repo.push(`origin-${repoName}`, 'main');
 
     console.log(`GitHub repository ${repoName} created and files pushed!`);
   } catch (error) {
