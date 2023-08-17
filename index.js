@@ -50,17 +50,23 @@ inquirer.prompt(questions).then(async (answers) => {
   // Create the new project folder
   await mkdirAsync(projectFolderPath);
 
-  // Copy the template files to the new project folder
-  await copyAsync(templatePath, projectFolderPath);
+  // Get the template contents (excluding unnecessary files)
+  const templateContents = await fs.readdir(templatePath);
+  for (const item of templateContents) {
+    if (item !== 'node_modules' && item !== 'package.json') {
+      const itemPath = path.join(templatePath, item);
+      const targetPath = path.join(projectFolderPath, item);
+      await copyAsync(itemPath, targetPath);
+    }
+  }
 
   // Change directory to the newly created project
   process.chdir(projectFolderPath);
-  
+
   // Initialize a new Git repository
   await git.init();
 
   console.log('Project setup completed!');
-
   // Create a new repository on GitHub
   const repoName = projectName.toLowerCase().replace(/\s/g, '-');
   try {
