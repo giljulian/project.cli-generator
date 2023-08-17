@@ -88,12 +88,12 @@ inquirer.prompt(questions).then(async (answers) => {
 
     if (!originRemoteExists) {
       console.log('ADD THE REMOTE');
-      // await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
+      await repo.addRemote(`origin-${repoName}`, `git@github.com:${GITHUB_USERNAME}/${repoName}.git`);
     }
 
     // Push to the remote repository
     console.log('MAKE THE PUSH');
-    // await repo.push(`origin-${repoName}`, 'main');
+    await repo.push(`origin-${repoName}`, 'main');
 
     console.log(`GitHub repository ${repoName} created and files pushed!`);
   } catch (error) {
