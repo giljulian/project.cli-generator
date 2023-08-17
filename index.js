@@ -61,6 +61,11 @@ inquirer.prompt(questions).then(async (answers) => {
 
   console.log('Project setup completed!');
 
+  // List the contents before pushing
+  const contentsBeforePush = await fs.readdir(projectFolderPath);
+  console.log('Contents before pushing:');
+  console.log(contentsBeforePush);
+
   // Create a new repository on GitHub
   const repoName = projectName.toLowerCase().replace(/\s/g, '-');
   try {
